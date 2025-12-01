@@ -1,18 +1,12 @@
-from django.shortcuts import render
 
-from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import generics
+from .serializers import RegisterSerializers
+from .models import User
+from rest_framework.permissions import AllowAny
 
-
-def test_view(request):
-    return JsonResponse({'message': 'Users app is working!'})
-
-
-@api_view(['GET'])
-def users_list(request):
-    data = [
-        {'id': 1, 'name': 'Alice'},
-        {'id': 2, 'name': 'Bob'},
-    ]
-    return Response(data)
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializers
+    permission_classes = [AllowAny]
