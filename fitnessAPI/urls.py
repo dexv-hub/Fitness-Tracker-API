@@ -13,6 +13,8 @@ urlpatterns = [
     path('api/body/', include("body.urls")),
     path("api/sleep/", include("sleep.urls")),
     path("api/workouts/", include("workouts.urls")),
+    path("api/nutrition/", include("nutrition.urls")),
+    path("api/stats/", include("stats.urls")),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
