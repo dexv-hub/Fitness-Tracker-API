@@ -5,4 +5,4 @@ class NutritionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nutrition
         fields = ['id', 'user', 'calories', 'carbohydrates', 'protein', 'fats', "date"]
-        read_only_fields = ['id', 'user', "date"]
+        read_only_fields = ['id', 'user']
