@@ -14,4 +14,4 @@ class Sleep(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.user.email} - {self.duration_hours}h on {self.date}"
+        return f"{self.user.email} - {self.duration_hours}h on {self.start_time.date()}"

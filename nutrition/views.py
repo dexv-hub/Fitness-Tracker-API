@@ -13,7 +13,13 @@ class NutritionListCreateView(generics.ListCreateAPIView):
             "calories_asc": "calories",
             "calories_desc": "-calories",
             "protein_asc": "protein",
-            "protein_desc": "-protein"
+            "protein_desc": "-protein",
+            "fats_asc": "fats",
+            "fats_desc": "-fats",
+            "carbohydrates_asc": "carbohydrates",
+            "carbohydrates_desc": "-carbohydrates"
+
+
         }
         return filter_and_sort_queryset(queryset, self.request, date_field="date", sort_fields=sort_options)
 

@@ -10,8 +10,8 @@ class WorkoutsListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Workouts.objects.filter(user=self.request.user)
         sort_options = {
-            "calories_asc": "burned_calories",
-            "calories_desc": "-burned_calories",
+            "burned_calories_asc": "burned_calories",
+            "burned_calories_desc": "-burned_calories",
             "duration_asc": "duration_minutes",
             "duration_desc": "-duration_minutes"
         }

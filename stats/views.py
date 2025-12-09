@@ -17,10 +17,18 @@ class DailyCaloriesView(APIView):
         meals = Nutrition.objects.filter(
             user=request.user,
             date=target_date
-        ).aggregate(total=Sum('calories'))
+        ).aggregate(
+            total=Sum('calories'),
+            total_protein = Sum('protein'),
+            total_fats = Sum('fats'),
+            total_carbs = Sum('carbohydrates')
+        )
 
         return Response({
                 "date": str(target_date),
-                "total_calories": meals["total"] or 0
+                "total_calories": meals["total"] or 0,
+                "total_protein": meals["total_protein"] or 0,
+                "total_fats": meals["total_fats"] or 0,
+                "total_carbohydrates": meals["total_carbs"] or 0
             }
         )
