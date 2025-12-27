@@ -1,6 +1,10 @@
 from pathlib import Path
-
-
+import os
+print("DB_NAME:", os.environ.get("DB_NAME"))
+print("DB_USER:", os.environ.get("DB_USER"))
+print("DB_PASSWORD:", os.environ.get("DB_PASSWORD"))
+print("DB_HOST:", os.environ.get("DB_HOST"))
+print("DB_PORT:", os.environ.get("DB_PORT"))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -8,7 +12,7 @@ SECRET_KEY = 'django-insecure--j&%0vexavo=*=(pp2d_obs*_itip%hp*jfkxq(sj!&#8e%bhi
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -60,12 +64,14 @@ WSGI_APPLICATION = 'fitnessAPI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
