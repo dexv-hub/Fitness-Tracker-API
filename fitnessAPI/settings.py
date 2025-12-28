@@ -1,18 +1,16 @@
 from pathlib import Path
 import os
-print("DB_NAME:", os.environ.get("DB_NAME"))
-print("DB_USER:", os.environ.get("DB_USER"))
-print("DB_PASSWORD:", os.environ.get("DB_PASSWORD"))
-print("DB_HOST:", os.environ.get("DB_HOST"))
-print("DB_PORT:", os.environ.get("DB_PORT"))
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-SECRET_KEY = 'django-insecure--j&%0vexavo=*=(pp2d_obs*_itip%hp*jfkxq(sj!&#8e%bhi'
-
-DEBUG = True
-
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-default-for-local")
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+
+SECURE_SSL_REDIRECT = not DEBUG
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,16 +60,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fitnessAPI.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("DB_NAME", "tracker_db"),
+            "USER": os.environ.get("DB_USER", "tracker_user"),
+            "PASSWORD": os.environ.get("DB_PASSWORD", "tracker_password"),
+            "HOST": os.environ.get("DB_HOST", "localhost"),
+            "PORT": os.environ.get("DB_PORT", "5432"),
+        }
+    }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
