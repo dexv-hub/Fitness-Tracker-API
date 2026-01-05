@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponseRedirect
 from rest_framework.permissions import AllowAny
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework_simplejwt.views import (
@@ -8,6 +9,7 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
+    path("", lambda request: HttpResponseRedirect("/api/docs/")),
     path('admin/', admin.site.urls),
     path('api/users/', include('users.urls')),
     path('api/water/', include("water.urls")),

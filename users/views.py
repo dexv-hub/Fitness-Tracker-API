@@ -1,4 +1,4 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, serializers
 from .serializers import RegisterSerializers
 from .models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -12,8 +12,11 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializers
     permission_classes = [AllowAny]
 
+class LogoutSerializer(serializers.Serializer):
+    pass
 
 class LogoutView(APIView):
+    serializer_class = LogoutSerializer
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
