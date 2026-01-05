@@ -12,17 +12,22 @@ services:
     build: .
     command: >
       sh -c "
+      ./wait-for-it.sh db:5432 -- 
+      ./wait-for-it.sh redis:6379 --
       python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000
       "
-
     env_file:
       - .env
     depends_on:
       - db
+      - redis
     ports:
       - "8000:8000"
-
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
 volumes:
   postgres_data:
 

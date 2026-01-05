@@ -2,19 +2,19 @@
 
 A RESTful API for tracking fitness-related data including nutrition, workouts, sleep, water intake, and body metrics.
 
-The project is built with Django REST Framework and designed with clean architecture, user-based data isolation, and JWT authentication.
+The project is built with Django REST Framework and designed with clean architecture, user-based data isolation, and JWT + Redis authentication.
 Deployed to production using Render with PostgreSQL.
 
 ---
 
 ## 🚀 Features
 
-- User authentication with JWT (SimpleJWT)
+- User authentication with JWT & Redis
 - Secure user-based data access
 - Nutrition & calorie tracking
 - Workout tracking
 - Sleep, water, and body metrics tracking
-- Daily aggregated statistics (calories, macros)
+- Daily aggregated statistics (calories, macros) & Redis
 - Swagger / OpenAPI documentation
 - Production-ready deployment
 
@@ -30,6 +30,7 @@ Deployed to production using Render with PostgreSQL.
 - **drf-spectacular (Swagger / OpenAPI)**
 - **Gunicorn**
 - **Render**
+- **Redis**
 
 ---
 
